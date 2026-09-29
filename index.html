@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jenny — Educational Leadership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #2E1A47;
+    --ink-soft: #5B4278;
+    --paper: #FBF9FD;
+    --paper-2: #F1E9FA;
+    --accent: #7C3AED;
+    --accent-2: #A855F7;
+    --accent-3: #C026D3;
+    --line: #E3D5F5;
+    --muted: #7A6B94;
+    --max: 880px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3{
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: rgba(251, 249, 253, 0.92);
+    backdrop-filter: blur(6px);
+    z-index: 10;
+  }
+  .nav-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px;
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .nav-name{
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links{
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .nav-links a{
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .nav-links a:hover{ color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 88px 0 72px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.7s ease-out forwards;
+  }
+  @keyframes rise{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  .hero .kicker{
+    color: var(--muted);
+    font-size: 0.98rem;
+    margin-bottom: 14px;
+  }
+  .kicker-bar{
+    width: 56px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    margin-bottom: 18px;
+  }
+  #skills .num{ color: var(--accent-2); }
+  #program-management .num{ color: var(--accent-3); }
+  #research .num{ color: var(--accent-2); }
+  #contact .num{ color: var(--accent); }
+  .hero h1{
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    line-height: 1.12;
+    max-width: 14ch;
+  }
+  .hero p.lede{
+    margin-top: 22px;
+    max-width: 56ch;
+    color: var(--ink-soft);
+    font-size: 1.12rem;
+  }
+  .credentials{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .credentials div{
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .credentials strong{
+    display: block;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.02rem;
+  }
+  .hero-actions{
+    margin-top: 34px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+  .btn{
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 3px;
+    font-size: 0.95rem;
+    transition: background 0.15s ease;
+  }
+  .btn:hover{ background: var(--accent-3); }
+  .hero-actions a.plain{ color: var(--ink-soft); text-decoration: underline; }
+
+  /* ---------- Section shell (marginal number + content) ---------- */
+  section{
+    padding: 68px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom: none; }
+
+  .section-head{
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .section-head .num{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 1.05rem;
+    padding-top: 4px;
+  }
+  .section-head h2{
+    font-size: 1.9rem;
+  }
+  .section-body{
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+  }
+  .section-body > .spacer{ }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .about-photo{
+    aspect-ratio: 4 / 5;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 20px;
+  }
+  .about-text p{ margin: 0 0 16px; color: var(--ink-soft); }
+  .about-text p:last-child{ margin-bottom: 0; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 48px;
+  }
+  .skill-group{
+    border-left: 3px solid var(--line);
+    padding-left: 20px;
+  }
+  .skill-group:nth-child(1){ border-color: var(--accent); }
+  .skill-group:nth-child(2){ border-color: var(--accent-2); }
+  .skill-group:nth-child(3){ border-color: var(--accent-3); }
+  .skill-group:nth-child(4){ border-color: var(--ink-soft); }
+  .skill-group h3{
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .skill-group ul{
+    list-style: none;
+    margin: 0; padding: 0;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+  .skill-group li{
+    padding: 6px 0;
+    border-top: 1px solid var(--line);
+  }
+  .skill-group li:first-child{ border-top: none; }
+
+  /* ---------- Research / Projects ---------- */
+  .project{
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 2.2fr;
+    gap: 24px;
+  }
+  .project:first-child{ border-top: none; }
+  .project .meta{
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .project h3{
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .project p{
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+  }
+  .project .tags{
+    font-size: 0.87rem;
+    color: var(--accent-2);
+  }
+  .project:nth-child(1){ border-top-color: var(--accent); border-top-width: 2px; }
+  .project:nth-child(2){ border-top-color: var(--accent-2); border-top-width: 2px; }
+  .project:nth-child(3){ border-top-color: var(--accent-3); border-top-width: 2px; }
+  .project:first-child{ border-top-width: 0; }
+
+  /* ---------- Program Management ---------- */
+  .pm-stats{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .pm-stat{
+    background: var(--paper-2);
+    border-left: 3px solid var(--accent);
+    padding: 16px 18px;
+    border-radius: 3px;
+  }
+  .pm-stat:nth-child(2){ border-left-color: var(--accent-2); }
+  .pm-stat:nth-child(3){ border-left-color: var(--accent-3); }
+  .pm-stat .value{
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    color: var(--ink);
+    display: block;
+  }
+  .pm-stat .label{
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .pm-text p{
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 28px;
+  }
+  .pm-list{
+    list-style: none;
+    margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 32px;
+  }
+  .pm-list li{
+    border-top: 1px solid var(--line);
+    padding: 12px 0 0;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+  .pm-list strong{
+    display: block;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .contact-main p{
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0 0 20px;
+  }
+  .contact-email{
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+  }
+  .contact-list{
+    list-style: none;
+    margin: 0; padding: 0;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+  .contact-list li{ padding: 4px 0; }
+
+  footer{
+    padding: 32px 0 56px;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 720px){
+    .nav-links{ gap: 16px; }
+    .nav-links a{ font-size: 0.88rem; }
+    .about-grid{ grid-template-columns: 1fr; }
+    .about-photo{ max-width: 220px; }
+    .skills-grid{ grid-template-columns: 1fr; }
+    .project{ grid-template-columns: 1fr; gap: 10px; }
+    .section-head, .section-body{ grid-template-columns: 40px 1fr; gap: 14px; }
+    .contact-body{ flex-direction: column; align-items: flex-start; }
+    .contact-list{ text-align: left; }
+    .pm-stats{ grid-template-columns: 1fr; }
+    .pm-list{ grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px){
+    body{ font-size: 16px; }
+    .nav-row{
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 20px;
+    }
+    .nav-links{ gap: 14px; flex-wrap: wrap; }
+    .wrap{ padding: 0 20px; }
+    .hero{ padding: 56px 0 48px; }
+    .hero h1{ max-width: 100%; }
+    .hero-actions{ flex-direction: column; align-items: flex-start; gap: 14px; }
+    .credentials{ flex-direction: column; gap: 14px; }
+    section{ padding: 48px 0; }
+    .section-head, .section-body{ grid-template-columns: 32px 1fr; gap: 10px; }
+    .section-head h2{ font-size: 1.55rem; }
+    .contact-email{ font-size: 1.3rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero{ animation: none; opacity: 1; transform: none; }
+    html{ scroll-behavior: auto; }
+    .btn{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-row">
+    <a class="nav-name" href="#top">Jenny</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#program-management">Program Mgmt</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="wrap hero">
+    <p class="kicker">Educational Leadership · Adult &amp; Community Learning</p>
+    <div class="kicker-bar"></div>
+    <h1>Jenny [Last Name]</h1>
+    <p class="lede">I study how institutions learn — building adult education programs and leadership practices that widen access and strengthen the communities they serve.</p>
+
+    <div class="credentials">
+      <div><strong>EdD</strong>Educational Leadership</div>
+      <div><strong>MEd</strong>Adult Education &amp; Community Development</div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn" href="#contact">Get in touch</a>
+      <a class="plain" href="#research">See my research</a>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">01</span>
+        <h2>About</h2>
+      </div>
+      <div class="section-body">
+        <span></span>
+        <div class="about-grid">
+          <div class="about-photo">Portrait photo<br>(replace with your image)</div>
+          <div class="about-text">
+            <p>I'm a doctoral graduate in Educational Leadership with a Master's in Adult Education and Community Development. My work sits at the intersection of program design, organizational learning, and equity — helping institutions build practices that hold up outside the classroom.</p>
+            <p>Before and during my graduate studies, I worked directly with adult learners and community organizations, which shaped how I think about leadership: not as authority handed down, but as the capacity to design conditions where people and programs can grow.</p>
+            <p>I'm currently exploring roles where I can bring research, facilitation, and program design together — in higher education, nonprofit leadership, or applied policy work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">02</span>
+        <h2>Skills</h2>
+      </div>
+      <div class="section-body">
+        <span></span>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3>Leadership &amp; strategy</h3>
+            <ul>
+              <li>Organizational change management</li>
+              <li>Strategic planning &amp; facilitation</li>
+              <li>Team development &amp; mentoring</li>
+              <li>Stakeholder engagement</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Adult &amp; community education</h3>
+            <ul>
+              <li>Curriculum &amp; program design</li>
+              <li>Andragogy &amp; experiential learning</li>
+              <li>Community needs assessment</li>
+              <li>Workshop facilitation</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Research &amp; evaluation</h3>
+            <ul>
+              <li>Qualitative &amp; mixed-methods research</li>
+              <li>Program evaluation &amp; assessment design</li>
+              <li>Grant &amp; report writing</li>
+              <li>Data-informed decision making</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Tools &amp; practice</h3>
+            <ul>
+              <li>NVivo / SPSS</li>
+              <li>Learning management systems</li>
+              <li>Survey &amp; interview design</li>
+              <li>Public speaking &amp; presentation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="program-management">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">03</span>
+        <h2>Program management</h2>
+      </div>
+      <div class="section-body">
+        <span></span>
+        <div>
+          <div class="pm-stats">
+            <div class="pm-stat">
+              <span class="value">[3+]</span>
+              <span class="label">Programs led end-to-end</span>
+            </div>
+            <div class="pm-stat">
+              <span class="value">[$250K+]</span>
+              <span class="label">Budgets managed</span>
+            </div>
+            <div class="pm-stat">
+              <span class="value">[40+]</span>
+              <span class="label">Community &amp; institutional partners</span>
+            </div>
+          </div>
+          <div class="pm-text">
+            <p>I coordinate programs from proposal through delivery — setting scope and milestones, keeping budgets and partners aligned, and reporting outcomes back to the people who funded or asked for the work.</p>
+          </div>
+          <ul class="pm-list">
+            <li><strong>Budget &amp; resource oversight</strong>Tracked and reported on program budgets, reallocating resources as priorities shifted.</li>
+            <li><strong>Cross-functional coordination</strong>Aligned faculty, staff, and community partners around shared timelines and deliverables.</li>
+            <li><strong>Timeline &amp; milestone tracking</strong>Built and maintained project plans for multi-phase initiatives.</li>
+            <li><strong>Risk &amp; issue management</strong>Identified early risks to program delivery and adjusted plans before they became setbacks.</li>
+            <li><strong>Partner &amp; vendor management</strong>Managed relationships with external partners, contractors, and community organizations.</li>
+            <li><strong>Stakeholder reporting</strong>Prepared progress reports and presentations for funders, leadership, and advisory boards.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">04</span>
+        <h2>Research &amp; projects</h2>
+      </div>
+      <div class="section-body">
+        <span></span>
+        <div>
+
+          <div class="project">
+            <div class="meta">Doctoral dissertation, 2026</div>
+            <div>
+              <h3>[Dissertation title]</h3>
+              <p>A study of [topic] — describe your research question, methodology, and central finding in two or three sentences that a hiring committee could skim in ten seconds.</p>
+              <div class="tags">Qualitative research · Leadership theory · Higher education</div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="meta">Applied project, 2024–2025</div>
+            <div>
+              <h3>[Program or initiative name]</h3>
+              <p>Describe a program you designed, led, or evaluated — the community it served, your role, and the outcome. Concrete numbers (participants reached, retention improved, funding secured) go a long way here.</p>
+              <div class="tags">Program design · Community partnership · Evaluation</div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="meta">Conference presentation / publication</div>
+            <div>
+              <h3>[Title of talk or paper]</h3>
+              <p>Note the venue, the audience, and the core argument. If it's published, link the DOI or repository here.</p>
+              <div class="tags">Adult education · Community development</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">05</span>
+        <h2>Contact</h2>
+      </div>
+      <div class="section-body">
+        <span></span>
+        <div class="contact-body">
+          <div class="contact-main">
+            <p>I'm open to conversations about educational leadership roles, program design work, and community partnerships. The best way to reach me is by email.</p>
+            <a class="contact-email" href="mailto:jenny@email.com">jenny@email.com</a>
+          </div>
+          <ul class="contact-list">
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Google Scholar</a></li>
+            <li>London, Ontario</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    &copy; 2026 Jenny — Educational Leadership.
+  </div>
+</footer>
+
+</body>
+</html>
